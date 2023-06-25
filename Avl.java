@@ -76,6 +76,35 @@ public class Avl<E extends Comparable<E>> {
         node = son;
         return node;
     }
+    
+    private NodeAvl<E> balanceToLeft(NodeAvl<E> node) {
+        NodeAvl<E> son = node.getRight();
+        if (son.getBf() == 1) {
+            node.setBf(0);
+            son.setBf(0);
+            node = rotateRSL(node);
+        } else if (son.getBf() == -1) {
+            NodeAvl<E> gSon = son.getLeft();
+            switch (gSon.getBf()) {
+                case -1:
+                    node.setBf(0);
+                    son.setBf(-1);
+                    break;
+                case 0:
+                    node.setBf(0);
+                    son.setBf(0);
+                    break;
+                case 1:
+                    node.setBf(1);
+                    son.setBf(0);
+                    break;
+            }
+            gSon.setBf(0);
 
+            node.setRight(rotateRSR(son));
+            node = rotateRSL(node);
+        }
+        return node;
+    }
 
 }
