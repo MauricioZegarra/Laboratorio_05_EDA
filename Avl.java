@@ -69,5 +69,13 @@ public class Avl<E extends Comparable<E>> {
         return node;
     }
 
+    private NodeAvl<E> rotateRSL(NodeAvl<E> node) {
+        NodeAvl<E> son = node.getRight();
+        node.setRight(son.getLeft());
+        son.setLeft(node);
+        node = son;
+        return node;
+    }
+
 
 }
