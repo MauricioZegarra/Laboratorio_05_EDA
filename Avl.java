@@ -60,4 +60,14 @@ public class Avl<E extends Comparable<E>> {
         }
         return res;
     }
+
+    private NodeAvl<E> rotateRSR(NodeAvl<E> node) {
+        NodeAvl<E> son = node.getLeft();
+        node.setLeft(son.getRight());
+        son.setRight(node);
+        node = son;
+        return node;
+    }
+
+
 }
