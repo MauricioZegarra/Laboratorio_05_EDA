@@ -1,3 +1,5 @@
+import org.w3c.dom.Node;
+
 public class Avl<E extends Comparable<E>> {
     private Nodo<E> root;
     private boolean height;
@@ -11,13 +13,13 @@ public class Avl<E extends Comparable<E>> {
     }
 
     public void insert(E x) throws ExceptionNoFound {
-        this.root = insert(x, this.root); 
-        this.height = false; //Cambios en la altura del arbol
+        this.root = insert(x, this.root);
+        this.height = false; // Cambios en la altura del arbol
     }
 
     private Nodo<E> insert(E x, Nodo<E> current) throws ExceptionNoFound {
         Nodo<E> res = current;
-        if (current == null) { // hemos alcanzado una posición adecuada para insertar 
+        if (current == null) { // hemos alcanzado una posición adecuada para insertar
             res = new Nodo<E>(x);
             this.height = true;
         } else {
@@ -36,14 +38,14 @@ public class Avl<E extends Comparable<E>> {
                         case 0:
                             res.setBf(1);
                             break;
-                        case 1: 
-                            res = balanceToLeft(res); //Rotación hacia la izquierda en el nodo "res"
+                        case 1:
+                            res = balanceToLeft(res); // Rotación hacia la izquierda en el nodo "res"
                             this.height = false;
                             break;
                     }
                 }
 
-            } else { //Si es mayor a 0
+            } else { // Si es mayor a 0
                 res.setLeft(insert(x, current.getLeft()));
                 if (this.height) {
                     switch (res.getBf()) {
@@ -55,7 +57,7 @@ public class Avl<E extends Comparable<E>> {
                             res.setBf(-1);
                             break;
                         case -1:
-                            res = balanceToRight(res); //Rotación hacia la derecha en el nodo "res"
+                            res = balanceToRight(res); // Rotación hacia la derecha en el nodo "res"
                             this.height = false;
                             break;
                     }
@@ -110,7 +112,7 @@ public class Avl<E extends Comparable<E>> {
         }
         return node;
     }
-    
+
     private Nodo<E> balanceToLeft(Nodo<E> node) {
         Nodo<E> son = node.getRight();
         if (son.getBf() == 1) {
@@ -153,7 +155,40 @@ public class Avl<E extends Comparable<E>> {
         return aux.getData();
     }
 
-    private Node<E> search(E x, NodeAvl<E> current) throws ExceptionNoFound {
+    // encontrar el minimo
+    public E getMax() throws ExceptionNoFound {
+        if (isEmpty()) {
+            throw new ExceptionNoFound("El árbol está vacío");
+        }
+
+        Nodo<E> maxNode = getMaxNode(root);
+        return maxNode.getData();
+    }
+
+    private Nodo<E> getMaxNode(Nodo<E> current) {
+        if (current.getRight() == null) {
+            return current;
+        }
+        return getMaxNode(current.getRight());
+    }
+
+    public E getMin() throws ExceptionNoFound {
+        if (isEmpty()) {
+            throw new ExceptionNoFound("El árbol está vacío");
+        }
+
+        Nodo<E> minNode = getMinNode(root);
+        return minNode.getData();
+    }
+
+    private Nodo<E> getMinNode(Nodo<E> current) {
+        if (current.getLeft() == null) {
+            return current;
+        }
+        return getMinNode(current.getLeft());
+    }
+
+    private Nodo<E> search(E x, Nodo<E> current) throws ExceptionNoFound {
         if (current == null) {
             return null;
         } else {
@@ -170,3 +205,4 @@ public class Avl<E extends Comparable<E>> {
     }
 
 }
+
