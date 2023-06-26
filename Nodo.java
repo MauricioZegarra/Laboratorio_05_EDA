@@ -1,11 +1,11 @@
-public class Node<E> {
+public class Nodo<E> {
 
     private E data;
-    private Node<E> left;
-    private Node<E> right;
+    private Nodo<E> left;
+    private Nodo<E> right;
     private int bf;
 
-    public Node(E data, Node<E> left, Node<E> right) {
+    public Nodo(E data, Nodo<E> left, Nodo<E> right) {
         this.data = data;
         this.left = left;
         this.right = right;
@@ -20,7 +20,7 @@ public class Node<E> {
         this.bf = bf;
     }
 
-    public Node(E data) {
+    public Nodo(E data) {
         this(data, null, null);
     }
 
@@ -32,19 +32,19 @@ public class Node<E> {
         this.data = data;
     }
 
-    public Node<E> getLeft() {
+    public Nodo<E> getLeft() {
         return this.left;
     }
 
-    public void setLeft(Node<E> left) {
+    public void setLeft(Nodo<E> left) {
         this.left = left;
     }
 
-    public Node<E> getRight() {
+    public Nodo<E> getRight() {
         return this.right;
     }
 
-    public void setRight(Node<E> right) {
+    public void setRight(Nodo<E> right) {
         this.right = right;
     }
 

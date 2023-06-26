@@ -1,5 +1,5 @@
 public class Avl<E extends Comparable<E>> {
-    private Node<E> root;
+    private Nodo<E> root;
     private boolean height;
 
     public Avl() {
@@ -11,10 +11,10 @@ public class Avl<E extends Comparable<E>> {
         this.height = false; //Cambios en la altura del arbol
     }
 
-    private Node<E> insert(E x, Node<E> current) throws ExceptionNoFound {
-        Node<E> res = current;
+    private Nodo<E> insert(E x, Nodo<E> current) throws ExceptionNoFound {
+        Nodo<E> res = current;
         if (current == null) { // hemos alcanzado una posición adecuada para insertar 
-            res = new Node<E>(x);
+            res = new Nodo<E>(x);
             this.height = true;
         } else {
             int resC = current.getData().compareTo(x);
@@ -61,30 +61,30 @@ public class Avl<E extends Comparable<E>> {
         return res;
     }
 
-    private NodeAvl<E> rotateRSR(NodeAvl<E> node) {
-        NodeAvl<E> son = node.getLeft();
+    private NodoAvl<E> rotateRSR(NodoAvl<E> node) {
+        NodoAvl<E> son = node.getLeft();
         node.setLeft(son.getRight());
         son.setRight(node);
         node = son;
         return node;
     }
 
-    private NodeAvl<E> rotateRSL(NodeAvl<E> node) {
-        NodeAvl<E> son = node.getRight();
+    private NodoAvl<E> rotateRSL(NodoAvl<E> node) {
+        NodoAvl<E> son = node.getRight();
         node.setRight(son.getLeft());
         son.setLeft(node);
         node = son;
         return node;
     }
 
-    private NodeAvl<E> balanceToRight(NodeAvl<E> node) {
-        NodeAvl<E> son = node.getLeft();
+    private NodoAvl<E> balanceToRight(NodoAvl<E> node) {
+        NodoAvl<E> son = node.getLeft();
         if (son.getBf() == -1) {
             node.setBf(0);
             son.setBf(0);
             node = rotateRSR(node);
         } else if (son.getBf() == 1) {
-            NodeAvl<E> gSon = son.getRight();
+            NodoAvl<E> gSon = son.getRight();
             switch (gSon.getBf()) {
                 case 1:
                     node.setBf(0);
@@ -107,14 +107,14 @@ public class Avl<E extends Comparable<E>> {
         return node;
     }
     
-    private NodeAvl<E> balanceToLeft(NodeAvl<E> node) {
-        NodeAvl<E> son = node.getRight();
+    private NodoAvl<E> balanceToLeft(NodoAvl<E> node) {
+        NodoAvl<E> son = node.getRight();
         if (son.getBf() == 1) {
             node.setBf(0);
             son.setBf(0);
             node = rotateRSL(node);
         } else if (son.getBf() == -1) {
-            NodeAvl<E> gSon = son.getLeft();
+            NodoAvl<E> gSon = son.getLeft();
             switch (gSon.getBf()) {
                 case -1:
                     node.setBf(0);
