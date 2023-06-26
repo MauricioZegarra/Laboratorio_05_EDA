@@ -6,6 +6,10 @@ public class Avl<E extends Comparable<E>> {
         this.root = null;
     }
 
+    public boolean isEmpty() {
+        return this.root == null;
+    }
+
     public void insert(E x) throws ExceptionNoFound {
         this.root = insert(x, this.root); 
         this.height = false; //Cambios en la altura del arbol
@@ -135,6 +139,34 @@ public class Avl<E extends Comparable<E>> {
             node = rotateRSL(node);
         }
         return node;
+    }
+
+    public E getRoot() {
+        return this.root.getData();
+    }
+
+    public E search(E x) throws ExceptionNoFound {
+        Node<E> aux = search(x, this.root);
+        if (aux == null) {
+            throw new ExceptionNoFound("Elemento no se encuentra en el arbol");
+        }
+        return aux.getData();
+    }
+
+    private Node<E> search(E x, NodeAvl<E> current) throws ExceptionNoFound {
+        if (current == null) {
+            return null;
+        } else {
+            int resC = current.getData().compareTo(x);
+            if (resC == 0) {
+                return current;
+            }
+            if (resC < 0) {
+                return search(x, current.getRight());
+            } else {
+                return search(x, current.getLeft());
+            }
+        }
     }
 
 }
