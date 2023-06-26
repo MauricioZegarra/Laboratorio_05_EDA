@@ -143,18 +143,19 @@ public class Avl<E extends Comparable<E>> {
         return node;
     }
 
-    public E getRoot() {
-        return this.root.getData();
+    public Nodo<E> getRoot() {
+        return this.root;
     }
 
     public E search(E x) throws ExceptionNoFound {
-        Node<E> aux = search(x, this.root);
+        Nodo<E> aux = search(x, this.root);
         if (aux == null) {
             throw new ExceptionNoFound("Elemento no se encuentra en el arbol");
         }
         return aux.getData();
     }
 
+<<<<<<< HEAD
     // encontrar el minimo
     public E getMax() throws ExceptionNoFound {
         if (isEmpty()) {
@@ -188,6 +189,8 @@ public class Avl<E extends Comparable<E>> {
         return getMinNode(current.getLeft());
     }
 
+=======
+>>>>>>> 864e1072e4d83686c705052705d64f9d20228bdb
     private Nodo<E> search(E x, Nodo<E> current) throws ExceptionNoFound {
         if (current == null) {
             return null;
