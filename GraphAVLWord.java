@@ -27,6 +27,18 @@ public class GraphAVLWord<E extends Comparable<E>> {
         this.graph.setAttribute("ui.stylesheet", styleSheet);
     }
 
+    private void addNodes(NodeAvl<E> node, Node parentNode) {
+        if (node != null) {
+            Node graphNode = this.graph.addNode(node.getData().toString());
+            graphNode.setAttribute("ui.label", node.getData().toString());
+            if (parentNode != null) {
+                this.graph.addEdge(parentNode.getId() + "_" + graphNode.getId(), parentNode, graphNode);
+            }
+            addNodes(node.getLeft(), graphNode);
+            addNodes(node.getRight(), graphNode);
+        }
+    }
+
     public void print() {
         addNodes(this.avl.root, null);
         addEdges(this.avl.root);
