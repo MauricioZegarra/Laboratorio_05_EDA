@@ -57,6 +57,27 @@ public class GraphAVLWord<E extends Comparable<E>> {
         }
     }
 
+    public static void main(String[] args) throws ExceptionNoFound {
+
+        System.setProperty("org.graphstream.ui", "swing");
+
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.print("Introduzca la palabra: ");
+        String word = sc.next();
+        
+        Avl<Character> avl = new Avl<Character>();
+        
+        for (int i = 0; i < word.length(); i++) {
+            avl.insert(word.charAt(i));
+        }
+        
+        System.out.println("\nLa cabeza del AVL es: " + avl.getRoot());
+
+        AVLGraphPrinter<Character> graphPrinter = new AVLGraphPrinter<Character>(avl);
+        graphPrinter.print();
+    }
+
     public void print() {
         addNodes(this.avl.root, null);
         addEdges(this.avl.root);
