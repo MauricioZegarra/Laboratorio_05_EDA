@@ -155,8 +155,6 @@ public class Avl<E extends Comparable<E>> {
         return aux.getData();
     }
 
-<<<<<<< HEAD
-    // encontrar el minimo
     public E getMax() throws ExceptionNoFound {
         if (isEmpty()) {
             throw new ExceptionNoFound("El árbol está vacío");
@@ -189,8 +187,6 @@ public class Avl<E extends Comparable<E>> {
         return getMinNode(current.getLeft());
     }
 
-=======
->>>>>>> 864e1072e4d83686c705052705d64f9d20228bdb
     private Nodo<E> search(E x, Nodo<E> current) throws ExceptionNoFound {
         if (current == null) {
             return null;
