@@ -202,6 +202,66 @@ public class Avl<E extends Comparable<E>> {
             }
         }
     }
+    //  son busca si ambos elementos están presentes y  si a es padre de b, 
+    //de lo contrario, devuelve false. 
+    public boolean son(E a, E b) throws ExceptionNoFound {
+        return son(a, b, this.root);
+    }
+
+    private boolean son(E a, E b, Nodo<E> current) throws ExceptionNoFound {
+        if (current == null) {
+            return false;
+        }
+
+        boolean aEncontrado = false;
+        boolean bEncontrado = false;
+
+        if (current.getData().equals(a)) {
+            aEncontrado = true;
+        } else if (current.getData().equals(b)) {
+            bEncontrado = true;
+        }
+
+        if (aEncontrado && bEncontrado) {
+            return true;
+        }
+
+        boolean hijoEnIzquierda = son(a, b, current.getLeft());
+        boolean hijoEnDerecha = son(a, b, current.getRight());
+
+        if (aEncontrado || bEncontrado || hijoEnIzquierda || hijoEnDerecha) {
+            return true;
+        }
+
+        return false;
+    }
+    //metodo parent busca el padre mas cercano entre dos nodos
+    public E parent(E a, E b) throws ExceptionNoFound {
+    return parent(a, b, this.root);
+    }
+
+    private E parent(E a, E b, Nodo<E> current) throws ExceptionNoFound {
+        if (current == null) {
+            throw new ExceptionNoFound("Elemento no se encuentra en el árbol");
+        }
+
+        if ((current.getLeft() != null && current.getLeft().getData().equals(a) && current.getRight() != null && current.getRight().getData().equals(b))
+                || (current.getRight() != null && current.getRight().getData().equals(a) && current.getLeft() != null && current.getLeft().getData().equals(b))) {
+            return current.getData();
+        }
+
+        E parentEnIzquierda = parent(a, b, current.getLeft());
+        E parentEnDerecha = parent(a, b, current.getRight());
+
+        if (parentEnIzquierda != null) {
+            return parentEnIzquierda;
+        } else if (parentEnDerecha != null) {
+            return parentEnDerecha;
+        }
+
+        return null;
+    }
+
 
 }
 
