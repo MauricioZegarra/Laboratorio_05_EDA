@@ -39,6 +39,24 @@ public class GraphAVLWord<E extends Comparable<E>> {
         }
     }
 
+    private void addEdges(NodeAvl<E> current) {
+        if (current.getLeft() != null) {
+            String edgeId = current.getData().toString() + "_" + current.getLeft().getData().toString();
+            if (this.graph.getEdge(edgeId) == null) {
+                this.graph.addEdge(edgeId, current.getData().toString(), current.getLeft().getData().toString());
+            }
+            addEdges(current.getLeft());
+        }
+
+        if (current.getRight() != null) {
+            String edgeId = current.getData().toString() + "_" + current.getRight().getData().toString();
+            if (this.graph.getEdge(edgeId) == null) {
+                this.graph.addEdge(edgeId, current.getData().toString(), current.getRight().getData().toString());
+            }
+            addEdges(current.getRight());
+        }
+    }
+
     public void print() {
         addNodes(this.avl.root, null);
         addEdges(this.avl.root);
