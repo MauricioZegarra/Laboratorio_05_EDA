@@ -20,14 +20,14 @@ public class GraphAVLWord<E extends Comparable<E>> {
             + "}"
             + "edge { arrow-shape: arrow; arrow-size: 20px, 4px; }";
 
-    public AVLGraphPrinter(Avl<E> avl) {
+    public GraphAVLWord(Avl<E> avl) {
         this.avl = avl;
         this.graph = new SingleGraph("AVL Tree");
         
         this.graph.setAttribute("ui.stylesheet", styleSheet);
     }
 
-    private void addNodes(NodeAvl<E> node, Node parentNode) {
+    private void addNodes(Nodo<E> node, Node parentNode) {
         if (node != null) {
             Node graphNode = this.graph.addNode(node.getData().toString());
             graphNode.setAttribute("ui.label", node.getData().toString());
@@ -39,7 +39,7 @@ public class GraphAVLWord<E extends Comparable<E>> {
         }
     }
 
-    private void addEdges(NodeAvl<E> current) {
+    private void addEdges(Nodo<E> current) {
         if (current.getLeft() != null) {
             String edgeId = current.getData().toString() + "_" + current.getLeft().getData().toString();
             if (this.graph.getEdge(edgeId) == null) {
@@ -74,13 +74,13 @@ public class GraphAVLWord<E extends Comparable<E>> {
         
         System.out.println("\nLa cabeza del AVL es: " + avl.getRoot());
 
-        AVLGraphPrinter<Character> graphPrinter = new AVLGraphPrinter<Character>(avl);
+        GraphAVLWord<Character> graphPrinter = new GraphAVLWord<Character>(avl);
         graphPrinter.print();
     }
 
     public void print() {
-        addNodes(this.avl.root, null);
-        addEdges(this.avl.root);
+        addNodes(this.avl.getRoot(), null);
+        addEdges(this.avl.getRoot());
         
         this.graph.display();
     }

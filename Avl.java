@@ -61,30 +61,30 @@ public class Avl<E extends Comparable<E>> {
         return res;
     }
 
-    private NodoAvl<E> rotateRSR(NodoAvl<E> node) {
-        NodoAvl<E> son = node.getLeft();
+    private Nodo<E> rotateRSR(Nodo<E> node) {
+        Nodo<E> son = node.getLeft();
         node.setLeft(son.getRight());
         son.setRight(node);
         node = son;
         return node;
     }
 
-    private NodoAvl<E> rotateRSL(NodoAvl<E> node) {
-        NodoAvl<E> son = node.getRight();
+    private Nodo<E> rotateRSL(Nodo<E> node) {
+        Nodo<E> son = node.getRight();
         node.setRight(son.getLeft());
         son.setLeft(node);
         node = son;
         return node;
     }
 
-    private NodoAvl<E> balanceToRight(NodoAvl<E> node) {
-        NodoAvl<E> son = node.getLeft();
+    private Nodo<E> balanceToRight(Nodo<E> node) {
+        Nodo<E> son = node.getLeft();
         if (son.getBf() == -1) {
             node.setBf(0);
             son.setBf(0);
             node = rotateRSR(node);
         } else if (son.getBf() == 1) {
-            NodoAvl<E> gSon = son.getRight();
+            Nodo<E> gSon = son.getRight();
             switch (gSon.getBf()) {
                 case 1:
                     node.setBf(0);
@@ -107,14 +107,14 @@ public class Avl<E extends Comparable<E>> {
         return node;
     }
     
-    private NodoAvl<E> balanceToLeft(NodoAvl<E> node) {
-        NodoAvl<E> son = node.getRight();
+    private Nodo<E> balanceToLeft(Nodo<E> node) {
+        Nodo<E> son = node.getRight();
         if (son.getBf() == 1) {
             node.setBf(0);
             son.setBf(0);
             node = rotateRSL(node);
         } else if (son.getBf() == -1) {
-            NodoAvl<E> gSon = son.getLeft();
+            Nodo<E> gSon = son.getLeft();
             switch (gSon.getBf()) {
                 case -1:
                     node.setBf(0);
