@@ -1,0 +1,8 @@
+*.aux
+*.log
+*.out
+*.gz
+.DS_Store
+*.winrar
+*.txt
+*.syntex
