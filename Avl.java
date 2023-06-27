@@ -261,7 +261,51 @@ public class Avl<E extends Comparable<E>> {
 
         return null;
     }
+    public void remove(E x) throws ExceptionNoFound {
+        this.root = remove(x, this.root);
+        this.height = false; // Cambios en la altura del árbol
+    }
 
+    private Nodo<E> remove(E x, Nodo<E> current) throws ExceptionNoFound {
+        if (current == null) {
+            throw new ExceptionNoFound("Elemento no se encuentra en el árbol");
+        }
+
+        int resC = current.getData().compareTo(x);
+
+        if (resC == 0) {
+            // Caso 1: Nodo actual es el nodo a eliminar
+            if (current.getLeft() == null && current.getRight() == null) {
+                // El nodo actual no tiene hijos
+                return null;
+            } else if (current.getLeft() == null) {
+                // El nodo actual tiene solo hijo derecho
+                return current.getRight();
+            } else if (current.getRight() == null) {
+                // El nodo actual tiene solo hijo izquierdo
+                return current.getLeft();
+            } else {
+                // El nodo actual tiene ambos hijos
+                Nodo<E> successor = getMinNode(current.getRight());
+                current.setData(successor.getData());
+                current.setRight(remove(successor.getData(), current.getRight()));
+            }
+        } else if (resC < 0) {
+            // Caso 2: Nodo a eliminar está en el subárbol izquierdo
+            current.setLeft(remove(x, current.getLeft()));
+            if (this.height) {
+                current = balanceToRight(current);
+            }
+        } else {
+            // Caso 3: Nodo a eliminar está en el subárbol derecho
+            current.setRight(remove(x, current.getRight()));
+            if (this.height) {
+                current = balanceToLeft(current);
+            }
+        }
+
+        return current;
+    }
 
 }
 
